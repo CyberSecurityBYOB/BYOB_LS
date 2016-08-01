@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-FILE_PATH = 'testFile.txt'
+FILE_PATH = 'byob_config.txt'
 
 
 class ConfigurationFileReader:
