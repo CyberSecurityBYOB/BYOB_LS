@@ -5,17 +5,17 @@ from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen
 from time import sleep
 from threading import Thread
+from RequestBuilder import RequestBuilder
 
 SEPARATOR = '##############################'
 
 
-def work():
+def work(wrapper):
 
     # Prepare request
     # Valid URL url = 'http://www.google.com'
     # Unreachable URL url = 'http://www.asjdsajdsakjdsaksadjkasd.com'
     # Invalid URL url = 'dsakjshdakjadshksdahjksad'
-    url = 'https://www.google.com'
     # headers = {'User-Agent' : 'Mozilla 5.10'}
     # request = urllib2.Request(url, None, headers)
 
@@ -24,15 +24,15 @@ def work():
         print 'Sleeping...'
         sleep(1)
         print 'Awake!'
-        for i in xrange(3) :
-            request = Request(url)
-            request.add_header('User-agent', 'Mozilla 5.10')
+        for i in xrange(wrapper.contacts) :
+            request = Request(wrapper.url)
+            request.add_header('User-agent', wrapper.userAgent)
 
             # Getting the response
             try:
                 response = urlopen(request)
                 # Print the headers
-                print response.headers
+                # print response.headers
 
                 with open('log.txt', 'a') as log:
                     log.write(SEPARATOR + '\n')
@@ -49,17 +49,21 @@ def work():
                 print 'This URL is invalid'
 
         print 'Work Done! Sleeping...'
-        sleep(3)
+        sleep(wrapper.frequency)
         print "Let's work!"
 
 # Read file
 fileReader = ConfigurationFileReader()
 fileReader.readConfigurationFile()
 
+# Request builder
+builder = RequestBuilder(fileReader.configDict)
+builder.buildForABot()
+
 # Start Thread
-urlsLen = len(fileReader.configDict[Constants.URLS])
-for n in xrange(urlsLen) :
-    Thread(target=work, args=()).start()
+# urlsLen = len(fileReader.configDict[Constants.URLS])
+for w in builder.workers :
+    Thread(target=work, args=[w]).start()
 
 
 

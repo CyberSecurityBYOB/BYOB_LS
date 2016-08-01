@@ -2,8 +2,8 @@ Urls http://www.google.it https://www.google.com
 Proxy www.myproxy.com
 UserAgent BYOBv1
 Contacts 3
-MinFrequency 1537
-MaxFrequency 1537
+MinFrequency 1
+MaxFrequency 5
 SleepModeDate 2016-09-11
 SleepModeMinHour 0
 SleepModeMaxHour 23
