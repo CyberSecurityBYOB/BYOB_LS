@@ -1,4 +1,4 @@
-Urls www.google.it www.google.com
+Urls http://www.google.it https://www.google.com
 Proxy www.myproxy.com
 UserAgent BYOBv1
 Contacts 3
