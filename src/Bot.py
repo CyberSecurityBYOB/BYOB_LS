@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen
 from time import sleep
@@ -56,7 +57,7 @@ fileReader = ConfigurationFileReader()
 fileReader.readConfigurationFile()
 
 # Start Thread
-urlsLen = len(fileReader.configDict['Urls'])
+urlsLen = len(fileReader.configDict[Constants.URLS])
 for n in xrange(urlsLen) :
     Thread(target=work, args=()).start()
 
