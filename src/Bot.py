@@ -56,10 +56,9 @@ fileReader = ConfigurationFileReader()
 fileReader.readConfigurationFile()
 
 # Start Thread
-thread = Thread(target=work, args=())
-thread.start()
-
-Thread(target=work,args=()).start()
+urlsLen = len(fileReader.configDict['Urls'])
+for n in xrange(urlsLen) :
+    Thread(target=work, args=()).start()
 
 
 
