@@ -3,7 +3,7 @@
 import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
-from time import sleep
+from time import sleep, strftime
 from threading import Thread
 from RequestBuilder import RequestBuilder
 
@@ -24,7 +24,15 @@ def work(wrapper):
         print 'Sleeping...'
         sleep(1)
         print 'Awake!'
-        for i in xrange(wrapper.contacts) :
+
+        for i in xrange(0,wrapper.contacts) :
+            # This string will be included in logfile, it's initialized with SEPARATOR
+            logString = SEPARATOR[:] + '\n'
+            logString += 'Botnet for ' + wrapper.url + '\n'
+            logString += 'Connection #: ' + str(i) + '\n'
+            logString += 'UserAgent: ' + wrapper.userAgent + '\n'
+            logString += strftime("%a, %d %b %Y %H:%M:%S") + '\n'
+
             request = Request(wrapper.url)
             request.add_header('User-agent', wrapper.userAgent)
 
@@ -38,8 +46,13 @@ def work(wrapper):
                             ProxyHandler({'http': wrapper.proxy})
                         )
                     )
+
+                    # Log proxy
+                    logString += 'Proxy: '+ wrapper.proxy + '\n'
+
                 except Exception as e:
-                    print 'Proxy Error', e
+                    # Log proxy error
+                    logString += 'Proxy Error: ' + e + '\n'
 
             # Getting the response
             try:
@@ -47,19 +60,27 @@ def work(wrapper):
                 # Print the headers
                 # print response.headers
 
-                with open('log.txt', 'a') as log:
-                    log.write(SEPARATOR + '\n')
-                    for key, val in response.headers.items() :
-                        log.write(''.join('{} : {}'.format(key, val)) + '\n')
-                    log.write(SEPARATOR + '\n')
+                # Log the response
+                logString += 'Response: \n'
+                for key, val in response.headers.items() :
+                    logString += ''.join('{} : {}'.format(key, val)) + '\n'
 
             except URLError, e:
                 if hasattr(e,'code') :
                     print 'Error code : ' , e.code
+                    logString += 'Error code : ' , e.code + '\n'
                 if hasattr(e, 'reason') :
                     print 'Error reason  : ' , e.reason
+                    logString += 'Error reason : ' , e.reason + '\n'
             except ValueError, v:
                 print 'This URL is invalid'
+                logString += 'Error: This URL is invalid' + '\n'
+
+            finally:
+                # update log file
+                logString += SEPARATOR[:] + '\n'
+                with open('log.txt', 'a') as log:
+                    log.write(logString)
 
         print 'Work Done! Sleeping...'
         sleep(wrapper.frequency)
