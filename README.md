@@ -9,7 +9,7 @@ INTERNET.
 2. Per ciascuna URL bisogna prevedere una serie di variabili:
 
   2. dettaglio delle URL da contattare (minimo 2 diverse);
- periodicità di contatto, che può essere fissa (tempo impostato in secondi)
+  3. periodicità di contatto, che può essere fissa (tempo impostato in secondi)
 o random in un intervallo min-max fisso (tempo sempre impostato in
 secondi);
   3. numero massimo di contatti per ciascuna URL;
