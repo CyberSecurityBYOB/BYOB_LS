@@ -31,3 +31,7 @@ contatto delle URL ed il dettaglio delle URL contattate.
 pubblico (URL o IP) da usare per i contatti.
 10. [Estensioni] Raccogliere e scrivere su un file TXT le informazioni relative al Sistema
 Operativo e al/i browser presenti sulla postazione su cui il software è installato.
+
+11. [NostraEstensione] Gestire l'introduzione di url malformati
+12. [NostraEstensione] Rendere la BotNet eseguibile in ambienti senza interprete Python
+13. [NostraEstensione] Gestire la configurazione di default dei campi non immessi di ogni botnet
