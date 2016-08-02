@@ -11,6 +11,7 @@
 _ignore
 src/main/resources/application.properties
 src/test/resources/test.properties
+src/log.txt
 
 #==============================================================================#
 # JAVA
@@ -19,6 +20,7 @@ src/test/resources/test.properties
 #   Package Files
 #==============================================================================#
 *.jar
+*.pyc
 *.war
 *.ear
 *.db
