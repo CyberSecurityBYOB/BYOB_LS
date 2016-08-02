@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
+import Constants
 from ConfigurationFileReader import ConfigurationFileReader
-from urllib2 import Request, URLError, urlopen
+from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
 from time import sleep
 from threading import Thread
 from RequestBuilder import RequestBuilder
@@ -26,6 +27,19 @@ def work(wrapper):
         for i in xrange(wrapper.contacts) :
             request = Request(wrapper.url)
             request.add_header('User-agent', wrapper.userAgent)
+
+            # Setting proxy
+            if (wrapper.proxy != Constants.UNKNOWN):
+                try:
+                    # Install the ProxyHandler
+                    install_opener(
+                        build_opener(
+                            # Add ProxyHandler
+                            ProxyHandler({'http': wrapper.proxy})
+                        )
+                    )
+                except Exception as e:
+                    print 'Proxy Error', e
 
             # Getting the response
             try:
@@ -63,6 +77,3 @@ builder.buildForABot()
 # urlsLen = len(fileReader.configDict[Constants.URLS])
 for w in builder.workers :
     Thread(target=work, args=[w]).start()
-
-
-
