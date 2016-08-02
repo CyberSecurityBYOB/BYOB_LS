@@ -8,3 +8,6 @@ MAXFREQUENCY = 'MaxFrequency'
 SLEEPMODEDATE = 'SleepModeDate'
 SLEEPMODEMINHOUR = 'SleepModeMinHour'
 SLEEPMODEMAXHOUR = 'SleepModeMaxHour'
+
+# Unknown resources
+UNKNOWN = 'UNKNOWN'

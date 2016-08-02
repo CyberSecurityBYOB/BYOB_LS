@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 
-import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen
 from time import sleep
