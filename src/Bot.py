@@ -43,7 +43,7 @@ def work(wrapper):
                     install_opener(
                         build_opener(
                             # Add ProxyHandler
-                            ProxyHandler({'http': wrapper.proxy})
+                            ProxyHandler({'http': wrapper.proxy , 'https' : wrapper.proxy})
                         )
                     )
 
@@ -61,17 +61,15 @@ def work(wrapper):
                 # print response.headers
 
                 # Log the response
-                logString += 'Response: \n'
-                for key, val in response.headers.items() :
-                    logString += ''.join('{} : {}'.format(key, val)) + '\n'
+                logString += 'Response: ' + str(response.getcode()) + '\n' + str(response.info()) + '\n'
 
             except URLError, e:
                 if hasattr(e,'code') :
                     print 'Error code : ' , e.code
-                    logString += 'Error code : ' , e.code + '\n'
+                    logString += 'Error code : ' + str(e.code) + '\n'
                 if hasattr(e, 'reason') :
-                    print 'Error reason  : ' , e.reason
-                    logString += 'Error reason : ' , e.reason + '\n'
+                    print 'Error reason : ' , e.reason
+                    logString += 'Error reason : ' + str(e.reason) + '\n'
             except ValueError, v:
                 print 'This URL is invalid'
                 logString += 'Error: This URL is invalid' + '\n'
