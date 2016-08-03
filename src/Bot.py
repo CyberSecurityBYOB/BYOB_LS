@@ -101,6 +101,7 @@ def detectBrowsers(operativeSystem):
         import commands
         ret = commands.getoutput("compgen -c")
         print ret
+        return ret
 
     return 'Informations not available'
 
