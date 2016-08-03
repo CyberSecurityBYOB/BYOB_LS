@@ -98,7 +98,8 @@ def detectBrowsers(operativeSystem):
             print browsers
             return browsers
     if(operativeSystem == 'Linux'):
-        applist = os.popen("compgen -c")
+        import subprocess
+        applist = subprocess.check_output('compgen -c', shell=True, executable='/bin/bash')
         print applist
         return applist
 
