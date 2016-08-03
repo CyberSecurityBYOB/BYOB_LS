@@ -8,6 +8,15 @@ class RequestBuilder:
         self.configurationFileDictionary = dictionary
         self.workers = []
 
+        # Check compatibility
+        if (not self.configurationFileIsSupported()):
+            print 'Configuration file not supported: expected ' + str(Constants.SUPPORTEDVERSION) + ', found ' + self.configurationFileDictionary[Constants.VERSION][0]
+            import thread
+            thread.exit()
+
+    def configurationFileIsSupported(self):
+        return self.configurationFileDictionary[Constants.VERSION][0] == Constants.SUPPORTEDVERSION
+
     def buildForABot(self):
         frequency = self.computeFrequency(int(self.configurationFileDictionary[Constants.MINFREQUENCY][0]),
                                           int(self.configurationFileDictionary[Constants.MAXFREQUENCY][0]))
@@ -42,5 +51,3 @@ class WorkerWrapper :
         self.userAgent = ''
         self.frequency = 0
         self.sleepModeDate = ''
-
-
