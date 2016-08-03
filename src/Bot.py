@@ -97,7 +97,7 @@ def detectBrowsers(operativeSystem):
         except WindowsError as e:
             print browsers
             return browsers
-    if(operativeSystem == 'Linux'):
+    if(operativeSystem == 'Linux' or operativeSystem == 'Mac OS X' or operativeSystem == 'OS/2'):
         try:
             # Open browser name list file
             filelist = open('browsers.list','r')
@@ -127,7 +127,7 @@ print 'Detected Operative System: ' + platform.system() + ' - ' + platform.relea
 envFile = open('environment.txt', 'w')
 envFile.write('Operative System: ' + platform.system() + ' - ' + platform.release() + '\n')
 
-# Check installed browsers (Windows) from registry
+# Check installed browsers
 envFile.write('Installed Browsers Detected : ' + str( detectBrowsers(platform.system())) )
 envFile.close()
 
