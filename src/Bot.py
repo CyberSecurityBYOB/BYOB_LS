@@ -87,9 +87,9 @@ def work(wrapper):
 # Check Environment Informations
 import os
 import platform
-print 'Detected Operative System: ' + platform.system()
+print 'Detected Operative System: ' + platform.system() + ' - ' + platform.release()
 envFile = open('environment.txt', 'w')
-envFile.write('Operative System: ' + platform.system())
+envFile.write('Operative System: ' + platform.system() + ' - ' + platform.release() + '\n')
 envFile.close()
 
 # Read file
