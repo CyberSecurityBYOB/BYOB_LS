@@ -84,13 +84,34 @@ def work(wrapper):
         sleep(wrapper.frequency)
         print "Let's work!"
 
+def detectBrowsers(operativeSystem):
+    if(operativeSystem == 'Windows'):
+        import _winreg as wreg
+        key = wreg.OpenKey(wreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\Clients\\StartMenuInternet",0, wreg.KEY_READ)
+        browsers = []
+        try:
+            i = 0
+            while True:
+                browsers.append(wreg.EnumKey(key, i))
+                i += 1
+        except WindowsError as e:
+            print browsers
+            return browsers
+
+
+
 # Check Environment Informations
 import os
 import platform
 print 'Detected Operative System: ' + platform.system() + ' - ' + platform.release()
 envFile = open('environment.txt', 'w')
 envFile.write('Operative System: ' + platform.system() + ' - ' + platform.release() + '\n')
+
+# Check installed browsers (Windows) from registry
+envFile.write('Installed Browsers Detected : ' + str( detectBrowsers(platform.system())) )
 envFile.close()
+
+
 
 # Read file
 fileReader = ConfigurationFileReader()
