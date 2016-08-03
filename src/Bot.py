@@ -102,7 +102,7 @@ def detectBrowsers(operativeSystem):
         list = filelist.readlines()
         parameters = ' | grep '
         for b in list:
-            parameters += '-e ' + b + '\n'
+            parameters += '-e ' + b
         import subprocess
         applist = subprocess.check_output('compgen -c' + parameters, shell=True, executable='/bin/bash')
         print applist
