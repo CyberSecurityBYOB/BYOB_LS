@@ -98,10 +98,10 @@ def detectBrowsers(operativeSystem):
             print browsers
             return browsers
     if(operativeSystem == 'Linux'):
-        import commands
-        ret = commands.getoutput("compgen -c")
-        print ret
-        return ret
+        applist = os.popen("compgen -c")
+        print applist
+        return applist
+
 
     return 'Informations not available'
 
