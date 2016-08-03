@@ -1,3 +1,4 @@
+Version 1
 Urls http://www.google.it https://www.google.com
 Proxy www.myproxy.com
 UserAgent BYOBv1
