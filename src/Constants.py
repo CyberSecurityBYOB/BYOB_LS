@@ -11,3 +11,9 @@ SLEEPMODEMAXHOUR = 'SleepModeMaxHour'
 
 # Unknown resources
 UNKNOWN = 'UNKNOWN'
+
+# Version of configuration file
+VERSION = 'Version'
+
+# Supported Version
+SUPPORTEDVERSION = '1'
