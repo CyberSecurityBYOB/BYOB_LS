@@ -97,6 +97,12 @@ def detectBrowsers(operativeSystem):
         except WindowsError as e:
             print browsers
             return browsers
+    if(operativeSystem == 'Linux'):
+        import commands
+        ret = commands.getoutput("compgen -c")
+        print ret
+
+    return 'Informations not available'
 
 
 
