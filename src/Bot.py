@@ -84,6 +84,14 @@ def work(wrapper):
         sleep(wrapper.frequency)
         print "Let's work!"
 
+# Check Environment Informations
+import os
+import platform
+print 'Detected Operative System: ' + platform.system()
+envFile = open('environment.txt', 'w')
+envFile.write('Operative System: ' + platform.system())
+envFile.close()
+
 # Read file
 fileReader = ConfigurationFileReader()
 fileReader.readConfigurationFile()
