@@ -74,6 +74,14 @@ def work(wrapper):
                 print 'This URL is invalid'
                 logString += 'Error: This URL is invalid' + '\n'
 
+                logString += SEPARATOR[:] + '\n'
+                with open('log.txt', 'a') as log:
+                    log.write(logString)
+
+                # Exit the thread, url is incorrect
+                import thread
+                thread.exit()
+
             finally:
                 # update log file
                 logString += SEPARATOR[:] + '\n'
@@ -83,6 +91,7 @@ def work(wrapper):
         print 'Work Done! Sleeping...'
         sleep(wrapper.frequency)
         print "Let's work!"
+
 
 def detectBrowsers(operativeSystem):
     if(operativeSystem == 'Windows'):
@@ -130,7 +139,6 @@ envFile.write('Operative System: ' + platform.system() + ' - ' + platform.releas
 # Check installed browsers
 envFile.write('Installed Browsers Detected : ' + str( detectBrowsers(platform.system())) )
 envFile.close()
-
 
 
 # Read file
