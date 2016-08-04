@@ -16,4 +16,4 @@ UNKNOWN = 'UNKNOWN'
 VERSION = 'Version'
 
 # Supported Version
-SUPPORTEDVERSION = '1'
+SUPPORTEDVERSION = '2'

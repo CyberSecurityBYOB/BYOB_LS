@@ -146,7 +146,7 @@ fileReader = ConfigurationFileReader()
 fileReader.readConfigurationFile()
 
 # Request builder
-builder = RequestBuilder(fileReader.configDict)
+builder = RequestBuilder(fileReader.configDict, fileReader.defaultConfigDict)
 builder.buildForABot()
 
 # Start Thread

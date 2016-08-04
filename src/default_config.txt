@@ -1,0 +1,9 @@
+Urls 127.0.0.1
+Proxy UNKNOWN
+UserAgent BYOBv1
+Contacts 1
+MinFrequency 1
+MaxFrequency 5
+SleepModeDate 2012-12-21
+SleepModeMinHour 0
+SleepModeMaxHour 23

@@ -4,8 +4,9 @@ from random import randint
 
 class RequestBuilder:
 
-    def __init__(self, dictionary):
+    def __init__(self, dictionary, default_config):
         self.configurationFileDictionary = dictionary
+        self.configurationFileDictionaryDefault = default_config
         self.workers = []
 
         # Check compatibility
@@ -18,20 +19,25 @@ class RequestBuilder:
         return self.configurationFileDictionary[Constants.VERSION][0] == Constants.SUPPORTEDVERSION
 
     def buildForABot(self):
+        #we can move the random frequency directly on threads
         frequency = self.computeFrequency(int(self.configurationFileDictionary[Constants.MINFREQUENCY][0]),
                                           int(self.configurationFileDictionary[Constants.MAXFREQUENCY][0]))
 
-        for url in self.configurationFileDictionary[Constants.URLS]:
-            self.buildForAWorker(url, frequency)
+        for index in xrange(0,len(self.configurationFileDictionary[Constants.URLS])):
+            self.buildForAWorker(index, frequency)
 
-    def buildForAWorker(self, url, frequency):
+    def _setSettingOrDefault(self, setting, default):
+        return setting if setting!=Constants.UNKNOWN else default
+
+
+    def buildForAWorker(self, index, frequency):
         worker = WorkerWrapper()
-        worker.url = url
+        worker.url = self._setSettingOrDefault(self.configurationFileDictionary[Constants.URLS][index], self.configurationFileDictionaryDefault[Constants.URLS][0])
         worker.frequency = frequency
-        worker.contacts = int(self.configurationFileDictionary[Constants.CONTACTS][0])
+        worker.contacts = int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.CONTACTS][index], self.configurationFileDictionaryDefault[Constants.CONTACTS][0]))
         worker.proxy = self.configurationFileDictionary[Constants.PROXY][0]
-        worker.userAgent = self.configurationFileDictionary[Constants.USERAGENT][0]
-        worker.sleepModeDate = self.configurationFileDictionary[Constants.SLEEPMODEDATE][0]
+        worker.userAgent = self._setSettingOrDefault(self.configurationFileDictionary[Constants.USERAGENT][index], self.configurationFileDictionaryDefault[Constants.USERAGENT][0])
+        worker.sleepModeDate = self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEDATE][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEDATE][0])
 
         self.workers.append(worker)
 
