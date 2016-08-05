@@ -3,11 +3,12 @@
 import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
-from time import sleep, strftime, localtime, strptime
+from time import sleep, strftime, localtime, strptime, ctime
 from threading import Thread
 from RequestBuilder import RequestBuilder
+import ntplib
 
-SEPARATOR = '##############################'
+SEPARATOR = '#############################################################'
 
 
 def work(wrapper):
@@ -21,10 +22,13 @@ def work(wrapper):
 
     # Print configuration of the botnet in log File
 
-    for i in xrange(0,wrapper.contacts) :
+    endLife = wrapper.contacts if wrapper.contacts!=0 else float('inf')
+    i = 0
+
+    while (i < endLife) :
 
         # Check if the  thread must sleep
-        if isTimeToSleep(wrapper):
+        while isTimeToSleep(wrapper):
             print 'Sleeping...'
             sleep(timeToSleep(wrapper))
             print '...Awake'
@@ -94,7 +98,19 @@ def work(wrapper):
             with open('log.txt', 'a') as log:
                 log.write(logString)
 
+
+            sleep(wrapper.frequency)
+
+            i += 1
+
     print 'Work Done, Bye!'
+
+def timeNTP(server):
+    c = ntplib.NTPClient()
+    response = c.request(server, version=3)
+
+    print ' Time from network : ' + str(localtime(response.tx_time))
+    return localtime(response.tx_time)
 
 def isHourToSleep(wrapper):
     minH = wrapper.sleepModeMinHour
@@ -104,9 +120,12 @@ def isHourToSleep(wrapper):
     if minH == maxH:
         return False
 
-    now = localtime().tm_hour
+    if wrapper.networkTimeServer != Constants.UNKNOWN:
+        now = timeNTP(wrapper.networkTimeServer).tm_hour
+    else:
+        now = localtime().tm_hour
 
-    if now >= minH and now <= maxH:
+    if now >= minH and now < maxH:
         print 'Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
         return True
     else:
@@ -115,12 +134,19 @@ def isHourToSleep(wrapper):
 
 def isTimeToSleep(wrapper):
     # Object time in python
-    today = localtime()
+    if wrapper.networkTimeServer != Constants.UNKNOWN:
+        today = timeNTP(wrapper.networkTimeServer)
+    else:
+        today = localtime()
+
     startSleep = wrapper.sleepModeDate
 
     # Numbers of day since 1 1 0000
-    todayDay = today.tm_yday * today.tm_year
-    startSleepDay = startSleep.tm_yday * startSleep.tm_year
+    todayDay =  today.tm_year * 360 + today.tm_yday
+    startSleepDay =  360 *  startSleep.tm_year + startSleep.tm_yday
+
+    if todayDay < startSleepDay:
+        return False
 
     if int(wrapper.repeats)  == 0:
         return False
@@ -132,8 +158,14 @@ def isTimeToSleep(wrapper):
         print 'Non Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay)+ ' e repeat: ' + str(wrapper.repeats)
         return False
 
+
 def timeToSleep(wrapper):
-    return 0
+    if wrapper.networkTimeServer != Constants.UNKNOWN:
+        now = timeNTP(wrapper.networkTimeServer).tm_hour
+        return int(wrapper.sleepModeMaxHour - now) * 60 * 60
+    else:
+        return int(wrapper.sleepModeMaxHour - localtime().tm_hour) * 60 * 60
+
 
 def detectBrowsers(operativeSystem):
     if(operativeSystem == 'Windows'):

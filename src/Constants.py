@@ -1,14 +1,15 @@
 # Configuration file
 URLS = 'Urls'
-PROXY = 'Proxy'
-USERAGENT = 'UserAgent'
+PROXY = 'Proxys'
+USERAGENT = 'UserAgents'
 CONTACTS = 'Contacts'
-MINFREQUENCY = 'MinFrequency'
-MAXFREQUENCY = 'MaxFrequency'
-SLEEPMODEDATE = 'SleepModeDate'
-SLEEPMODEMINHOUR = 'SleepModeMinHour'
-SLEEPMODEMAXHOUR = 'SleepModeMaxHour'
+MINFREQUENCY = 'MinFrequencys'
+MAXFREQUENCY = 'MaxFrequencys'
+SLEEPMODEDATE = 'SleepModeDates'
+SLEEPMODEMINHOUR = 'SleepModeMinHours'
+SLEEPMODEMAXHOUR = 'SleepModeMaxHours'
 REPEATS = 'Repeats'
+NETWORKTIMESERVER = 'NetworkTimeServers'
 
 # Unknown resources
 UNKNOWN = 'UNKNOWN'
@@ -17,4 +18,4 @@ UNKNOWN = 'UNKNOWN'
 VERSION = 'Version'
 
 # Supported Version
-SUPPORTEDVERSION = '3'
+SUPPORTEDVERSION = '13'

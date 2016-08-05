@@ -41,6 +41,7 @@ class RequestBuilder:
         worker.sleepModeDate = strptime(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEDATE][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEDATE][0]), "%Y-%m-%d")
         worker.sleepModeMaxHour = int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEMAXHOUR][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEMAXHOUR][0]))
         worker.sleepModeMinHour = int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEMINHOUR][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEMINHOUR][0]))
+        worker.networkTimeServer = self._setSettingOrDefault(self.configurationFileDictionary[Constants.NETWORKTIMESERVER][index],self.configurationFileDictionaryDefault[Constants.NETWORKTIMESERVER][0])
 
         worker.repeats = self._setSettingOrDefault(self.configurationFileDictionary[Constants.REPEATS][index], self.configurationFileDictionaryDefault[Constants.REPEATS][0])
 
@@ -65,6 +66,7 @@ class WorkerWrapper :
         self.sleepModeMaxHour = 0
         self.sleepModeMinHour = 0
         self.repeats = 0
+        self.networkTimeServer = ''
 
     def __str__(self):
-        return 'Settings:\nUrl : ' + self.url + '\nMax Contacts : ' + str(self.contacts) +'\nProxy : ' + self.proxy +'\nUserAgent : ' + self.userAgent +'\nFrequency : ' + str(self.frequency) +'\nSleep Mode : ' + str(self.sleepModeDate.tm_yday) + ' from//to : ' + str(self.sleepModeMinHour) + '//' + str(self.sleepModeMaxHour) + ' repeats : ' + str(self.repeats) +'\nEnd Of Settings.\n'
+        return 'Settings:\nUrl : ' + self.url + '\nMax Contacts : ' + str(self.contacts) +'\nProxy : ' + self.proxy +'\nUserAgent : ' + self.userAgent +'\nFrequency : ' + str(self.frequency) +'\nSleep Mode : ' + str(self.sleepModeDate.tm_yday) + ' from//to : ' + str(self.sleepModeMinHour) + '//' + str(self.sleepModeMaxHour) + ' repeats : ' + str(self.repeats) + '\nNTP Server : '+ self.networkTimeServer +'\nEnd Of Settings.\n'
