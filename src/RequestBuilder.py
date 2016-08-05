@@ -71,4 +71,5 @@ class WorkerWrapper :
         '\nProxy : ' + self.proxy +
         '\nUserAgent : ' + self.userAgent +
         '\nFrequency : ' + str(self.frequency) +
-        '\nSleep Mode : ' + self.sleepModeDate + ' from//to : ' + str(self.sleepModeMinHour) + '//' + str(self.sleepModeMaxHour) + ' repeats : ' + str(self.repeats)
+        '\nSleep Mode : ' + self.sleepModeDate + ' from//to : ' + str(self.sleepModeMinHour) + '//' + str(self.sleepModeMaxHour) + ' repeats : ' + str(self.repeats) +
+        '\nEnd Of Settings.\n'
