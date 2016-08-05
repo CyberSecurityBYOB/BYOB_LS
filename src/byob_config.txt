@@ -1,12 +1,12 @@
 Version 13
-Urls http://www.google.com
-Proxys UNKNOWN
-UserAgents BYOBv1
-Contacts 3
-MinFrequencys 1
-MaxFrequencys 3
-SleepModeDates 2015-09-11
-SleepModeMinHours 0
-SleepModeMaxHours 16
-Repeats 1
-NetworkTimeServers europe.pool.ntp.org
+Urls http://www.google.it https://www.google.it https://www.mythirdurl.com
+Proxys UNKNOWN http://www.myproxy.com UNKNOWN
+UserAgents UNKNOWN MySecondUserAgent UNKNOWN
+Contacts UNKNOWN UNKNOWN 100
+MinFrequencys 2003 UNKNOWN 1
+MaxFrequencys 2003 UNKNOWN 3600
+SleepModeDates 2016-08-05 2016-08-05 UNKNOWN
+SleepModeMinHours 8 UNKNOWN 14
+SleepModeMaxHours 9 UNKNOWN 19
+Repeats 2 1 UNKNOWN
+NetworkTimeServers myfakeserver.com UNKNOWN europe.pool.ntp.org
