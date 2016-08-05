@@ -142,7 +142,7 @@ def isTimeToSleep(wrapper):
     today = timeNTP(wrapper.networkTimeServer) if wrapper.networkTimeServer != Constants.UNKNOWN else localtime()
 
     # Get start sleep mode date, if unknown choose day of thread start
-    startSleep = wrapper.sleepModeDate if wrapper.sleepModeDate!=Constants.UNKNOWN else localtime()
+    startSleep = wrapper.sleepModeDate 
 
     # Numbers of day since 1 1 0000
     todayDay =  today.tm_year * 360 + today.tm_yday

@@ -1,6 +1,6 @@
 import Constants
 from random import randint
-from time import strptime
+from time import strptime, localtime, strftime
 
 
 class RequestBuilder:
@@ -37,7 +37,7 @@ class RequestBuilder:
         worker.contacts = int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.CONTACTS][index], self.configurationFileDictionaryDefault[Constants.CONTACTS][0]))
         worker.proxy = self._setSettingOrDefault(self.configurationFileDictionary[Constants.PROXY][index], self.configurationFileDictionaryDefault[Constants.PROXY][0])
         worker.userAgent = self._setSettingOrDefault(self.configurationFileDictionary[Constants.USERAGENT][index], self.configurationFileDictionaryDefault[Constants.USERAGENT][0])
-        worker.sleepModeDate = strptime(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEDATE][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEDATE][0]), "%Y-%m-%d")
+        worker.sleepModeDate = strptime(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEDATE][index],strftime('%Y-%m-%d', localtime())), "%Y-%m-%d")
         worker.sleepModeMaxHour = int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEMAXHOUR][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEMAXHOUR][0]))
         worker.sleepModeMinHour = int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.SLEEPMODEMINHOUR][index], self.configurationFileDictionaryDefault[Constants.SLEEPMODEMINHOUR][0]))
         worker.networkTimeServer = self._setSettingOrDefault(self.configurationFileDictionary[Constants.NETWORKTIMESERVER][index],self.configurationFileDictionaryDefault[Constants.NETWORKTIMESERVER][0])
