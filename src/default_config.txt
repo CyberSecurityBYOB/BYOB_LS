@@ -6,4 +6,5 @@ MinFrequency 1
 MaxFrequency 5
 SleepModeDate 2012-12-21
 SleepModeMinHour 0
-SleepModeMaxHour 23
+SleepModeMaxHour 0
+Repeats 0
