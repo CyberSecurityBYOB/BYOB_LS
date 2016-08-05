@@ -4,6 +4,7 @@ import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
 from time import sleep, strftime
+import time
 from threading import Thread
 from RequestBuilder import RequestBuilder
 
@@ -19,79 +20,121 @@ def work(wrapper):
     # headers = {'User-Agent' : 'Mozilla 5.10'}
     # request = urllib2.Request(url, None, headers)
 
-    while True:
+    # Print configuration of the botnet in log File
 
-        print 'Sleeping...'
-        sleep(1)
-        print 'Awake!'
+    for i in xrange(0,wrapper.contacts) :
 
-        for i in xrange(0,wrapper.contacts) :
-            # This string will be included in logfile, it's initialized with SEPARATOR
-            logString = SEPARATOR[:] + '\n'
-            logString += 'Botnet for ' + wrapper.url + '\n'
-            logString += 'Connection #: ' + str(i) + '\n'
-            logString += 'UserAgent: ' + wrapper.userAgent + '\n'
-            logString += strftime("%a, %d %b %Y %H:%M:%S") + '\n'
+        # Check if the  thread must sleep
+        if isTimeToSleep(wrapper):
+            print 'Sleeping...'
+            sleep(timeToSleep(wrapper))
+            print '...Awake'
 
-            request = Request(wrapper.url)
-            request.add_header('User-agent', wrapper.userAgent)
+        print 'Lets do it!'
 
-            # Setting proxy
-            if (wrapper.proxy != Constants.UNKNOWN):
-                try:
-                    # Install the ProxyHandler
-                    install_opener(
-                        build_opener(
-                            # Add ProxyHandler
-                            ProxyHandler({'http': wrapper.proxy , 'https' : wrapper.proxy})
-                        )
-                    )
+        # This string will be included in logfile, it's initialized with SEPARATOR
+        logString = SEPARATOR[:] + '\n'
+        logString += 'Botnet for ' + wrapper.url + '\n'
+        logString +=  str(wrapper)
+        logString += 'Connection #: ' + str(i) + '\n'
+        logString += 'UserAgent: ' + wrapper.userAgent + '\n'
+        logString += strftime("%a, %d %b %Y %H:%M:%S") + '\n'
 
-                    # Log proxy
-                    logString += 'Proxy: '+ wrapper.proxy + '\n'
+        request = Request(wrapper.url)
+        request.add_header('User-agent', wrapper.userAgent)
 
-                except Exception as e:
-                    # Log proxy error
-                    logString += 'Proxy Error: ' + e + '\n'
-
-            # Getting the response
+        # Setting proxy
+        if (wrapper.proxy != Constants.UNKNOWN):
             try:
-                response = urlopen(request)
-                # Print the headers
-                # print response.headers
+                # Install the ProxyHandler
+                install_opener(
+                    build_opener(
+                        # Add ProxyHandler
+                        ProxyHandler({'http': wrapper.proxy , 'https' : wrapper.proxy})
+                    )
+                )
 
-                # Log the response
-                logString += 'Response: ' + str(response.getcode()) + '\n' + str(response.info()) + '\n'
+                # Log proxy
+                logString += 'Proxy: '+ wrapper.proxy + '\n'
 
-            except URLError, e:
-                if hasattr(e,'code') :
-                    print 'Error code : ' , e.code
-                    logString += 'Error code : ' + str(e.code) + '\n'
-                if hasattr(e, 'reason') :
-                    print 'Error reason : ' , e.reason
-                    logString += 'Error reason : ' + str(e.reason) + '\n'
-            except ValueError, v:
-                print 'This URL is invalid'
-                logString += 'Error: This URL is invalid' + '\n'
+            except Exception as e:
+                # Log proxy error
+                logString += 'Proxy Error: ' + e + '\n'
 
-                logString += SEPARATOR[:] + '\n'
-                with open('log.txt', 'a') as log:
-                    log.write(logString)
+        # Getting the response
+        try:
+            response = urlopen(request)
+            # Print the headers
+            # print response.headers
 
-                # Exit the thread, url is incorrect
-                import thread
-                thread.exit()
+            # Log the response
+            logString += 'Response: ' + str(response.getcode()) + '\n' + str(response.info()) + '\n'
 
-            finally:
-                # update log file
-                logString += SEPARATOR[:] + '\n'
-                with open('log.txt', 'a') as log:
-                    log.write(logString)
+        except URLError, e:
+            if hasattr(e,'code') :
+                print 'Error code : ' , e.code
+                logString += 'Error code : ' + str(e.code) + '\n'
+            if hasattr(e, 'reason') :
+                print 'Error reason : ' , e.reason
+                logString += 'Error reason : ' + str(e.reason) + '\n'
+        except ValueError, v:
+            print 'This URL is invalid'
+            logString += 'Error: This URL is invalid' + '\n'
 
-        print 'Work Done! Sleeping...'
-        sleep(wrapper.frequency)
-        print "Let's work!"
+            logString += SEPARATOR[:] + '\n'
+            with open('log.txt', 'a') as log:
+                log.write(logString)
 
+            # Exit the thread, url is incorrect
+            import thread
+            thread.exit()
+
+        finally:
+            # update log file
+            logString += SEPARATOR[:] + '\n'
+            with open('log.txt', 'a') as log:
+                log.write(logString)
+
+    print 'Work Done, Bye!'
+
+def isHourToSleep(wrapper):
+    minH = wrapper.sleepModeMinHour
+    maxH = wrapper.sleepModeMaxHour
+
+    # No need to sleep
+    if minH == maxH:
+        return False
+
+    now = time.localtime().tm_hour
+
+    if now >= minH and now <= maxH:
+        print 'Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
+        return True
+    else:
+        print 'Non Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
+        return False
+
+def isTimeToSleep(wrapper):
+    # Object time in python
+    today = time.localtime()
+    startSleep = time.strptime(wrapper.sleepModeDate, "%Y-%m-%d")
+
+    # Numbers of day since 1 1 0000
+    todayDay = today.tm_yday * today.tm_year
+    startSleepDay = startSleep.tm_yday * startSleep.tm_year
+
+    if int(wrapper.repeats)  == 0:
+        return False
+
+    if todayDay % int(wrapper.repeats) == startSleepDay % int(wrapper.repeats):
+        print 'Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay) + ' e repeat: ' + str(wrapper.repeats)
+        return isHourToSleep(wrapper)
+    else:
+        print 'Non Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay)+ ' e repeat: ' + str(wrapper.repeats)
+        return False
+
+def timeToSleep(wrapper):
+    return 0
 
 def detectBrowsers(operativeSystem):
     if(operativeSystem == 'Windows'):
