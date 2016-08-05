@@ -3,7 +3,7 @@
 import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
-from time import sleep, strftime, strptime, localtime
+from time import sleep, strftime, localtime, strptime
 from threading import Thread
 from RequestBuilder import RequestBuilder
 
@@ -116,7 +116,7 @@ def isHourToSleep(wrapper):
 def isTimeToSleep(wrapper):
     # Object time in python
     today = localtime()
-    startSleep = strptime(wrapper.sleepModeDate, "%Y-%m-%d")
+    startSleep = wrapper.sleepModeDate
 
     # Numbers of day since 1 1 0000
     todayDay = today.tm_yday * today.tm_year
