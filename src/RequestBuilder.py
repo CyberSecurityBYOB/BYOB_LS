@@ -20,11 +20,10 @@ class RequestBuilder:
         return self.configurationFileDictionary[Constants.VERSION][0] == Constants.SUPPORTEDVERSION
 
     def buildForABot(self):
-        #we can move the random frequency directly on threads
-        frequency = self.computeFrequency(int(self.configurationFileDictionary[Constants.MINFREQUENCY][0]),
-                                          int(self.configurationFileDictionary[Constants.MAXFREQUENCY][0]))
-
         for index in xrange(0,len(self.configurationFileDictionary[Constants.URLS])):
+            frequency = self.computeFrequency(int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.MINFREQUENCY][index],self.configurationFileDictionaryDefault[Constants.MINFREQUENCY][0])),
+                                  int(self._setSettingOrDefault(self.configurationFileDictionary[Constants.MAXFREQUENCY][index],self.configurationFileDictionaryDefault[Constants.MAXFREQUENCY][0])))
+
             self.buildForAWorker(index, frequency)
 
     def _setSettingOrDefault(self, setting, default):
