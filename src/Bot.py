@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-
 import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
@@ -106,11 +105,17 @@ def work(wrapper):
     print 'Work Done, Bye!'
 
 def timeNTP(server):
-    c = ntplib.NTPClient()
-    response = c.request(server, version=3)
+    try:
+        c = ntplib.NTPClient()
+        response = c.request(server, version=3)
 
-    print ' Time from network : ' + str(localtime(response.tx_time))
-    return localtime(response.tx_time)
+        print ' Time from network : ' + str(strftime("%a, %d %b %Y %H:%M:%S",localtime(response.tx_time)))
+        time = localtime(response.tx_time)
+    except:
+        print ' Network Time not available, using system time'
+        time = localtime()
+    finally:
+        return time
 
 def isHourToSleep(wrapper):
     minH = wrapper.sleepModeMinHour
