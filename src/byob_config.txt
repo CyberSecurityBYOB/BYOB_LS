@@ -1,6 +1,6 @@
 Version 3
 Urls http://www.google.it https://www.google.com https://www.google.en https://www.google.fr UNKNOWN
-Proxy www.myproxy.com
+Proxy www.myproxy.com UNKNOWN UNKNOWN UNKNOWN UNKNOWN
 UserAgent BYOBv1 BYOBv2 UNKNOWN UNKNOWN UNKNOWN
 Contacts 3 UNKNOWN 5 10 UNKNOWN
 MinFrequency 1537 UNKNOWN 1 1 UNKNOWN
