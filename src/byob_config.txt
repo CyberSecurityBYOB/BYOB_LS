@@ -1,6 +1,6 @@
 Version 13
-Urls http://www.google.it
-Proxys www.myproxy.com
+Urls http://www.google.com
+Proxys UNKNOWN
 UserAgents BYOBv1
 Contacts 3
 MinFrequencys 1

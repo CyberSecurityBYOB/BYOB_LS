@@ -138,13 +138,11 @@ def isHourToSleep(wrapper):
         return False
 
 def isTimeToSleep(wrapper):
-    # Object time in python
-    if wrapper.networkTimeServer != Constants.UNKNOWN:
-        today = timeNTP(wrapper.networkTimeServer)
-    else:
-        today = localtime()
+    # Get system time or network time
+    today = timeNTP(wrapper.networkTimeServer) if wrapper.networkTimeServer != Constants.UNKNOWN else localtime()
 
-    startSleep = wrapper.sleepModeDate
+    # Get start sleep mode date, if unknown choose day of thread start
+    startSleep = wrapper.sleepModeDate if wrapper.sleepModeDate!=Constants.UNKNOWN else localtime()
 
     # Numbers of day since 1 1 0000
     todayDay =  today.tm_year * 360 + today.tm_yday

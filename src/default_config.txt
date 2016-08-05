@@ -4,7 +4,7 @@ UserAgents BYOBv1
 Contacts 0
 MinFrequencys 1
 MaxFrequencys 5
-SleepModeDates 2012-12-21
+SleepModeDates UNKNOWN
 SleepModeMinHours 0
 SleepModeMaxHours 0
 Repeats 0
