@@ -3,8 +3,7 @@
 import Constants
 from ConfigurationFileReader import ConfigurationFileReader
 from urllib2 import Request, URLError, urlopen, install_opener, build_opener, ProxyHandler
-from time import sleep, strftime
-import time
+from time import sleep, strftime, strptime, localtime
 from threading import Thread
 from RequestBuilder import RequestBuilder
 
@@ -105,7 +104,7 @@ def isHourToSleep(wrapper):
     if minH == maxH:
         return False
 
-    now = time.localtime().tm_hour
+    now = localtime().tm_hour
 
     if now >= minH and now <= maxH:
         print 'Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
@@ -116,8 +115,8 @@ def isHourToSleep(wrapper):
 
 def isTimeToSleep(wrapper):
     # Object time in python
-    today = time.localtime()
-    startSleep = time.strptime(wrapper.sleepModeDate, "%Y-%m-%d")
+    today = localtime()
+    startSleep = strptime(wrapper.sleepModeDate, "%Y-%m-%d")
 
     # Numbers of day since 1 1 0000
     todayDay = today.tm_yday * today.tm_year
