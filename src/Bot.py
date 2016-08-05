@@ -160,7 +160,7 @@ def isTimeToSleep(wrapper):
             return False
 
     if todayDay % int(wrapper.repeats) == startSleepDay % int(wrapper.repeats) :
-        print wrapper.url + ' Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep) + ' e repeat: ' + str(wrapper.repeats)
+        print wrapper.url + ' Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep)) + ' e repeat: ' + str(wrapper.repeats)
         return isHourToSleep(wrapper)
     else:
         print wrapper.url + ' Non Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep))+ ' e repeat: ' + str(wrapper.repeats)
