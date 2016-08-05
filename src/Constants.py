@@ -8,6 +8,7 @@ MAXFREQUENCY = 'MaxFrequency'
 SLEEPMODEDATE = 'SleepModeDate'
 SLEEPMODEMINHOUR = 'SleepModeMinHour'
 SLEEPMODEMAXHOUR = 'SleepModeMaxHour'
+REPEATS = 'Repeats'
 
 # Unknown resources
 UNKNOWN = 'UNKNOWN'
@@ -16,4 +17,4 @@ UNKNOWN = 'UNKNOWN'
 VERSION = 'Version'
 
 # Supported Version
-SUPPORTEDVERSION = '2'
+SUPPORTEDVERSION = '3'
