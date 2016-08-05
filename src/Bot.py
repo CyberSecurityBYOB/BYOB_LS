@@ -28,11 +28,11 @@ def work(wrapper):
 
         # Check if the  thread must sleep
         while isTimeToSleep(wrapper):
-            print 'Sleeping...'
+            print wrapper.url + ': Sleeping...'
             sleep(timeToSleep(wrapper))
-            print '...Awake'
+            print wrapper.url + '...Awake'
 
-        print 'Lets do it!'
+        print wrapper.url + ' Lets do it!'
 
         # This string will be included in logfile, it's initialized with SEPARATOR
         logString = SEPARATOR[:] + '\n'
@@ -74,13 +74,13 @@ def work(wrapper):
 
         except URLError, e:
             if hasattr(e,'code') :
-                print 'Error code : ' , e.code
+                print wrapper.url + ' Error code : ' , e.code
                 logString += 'Error code : ' + str(e.code) + '\n'
             if hasattr(e, 'reason') :
-                print 'Error reason : ' , e.reason
+                print wrapper.url + ' Error reason : ' , e.reason
                 logString += 'Error reason : ' + str(e.reason) + '\n'
         except ValueError, v:
-            print 'This URL is invalid'
+            print wrapper.url + ' This URL is invalid'
             logString += 'Error: This URL is invalid' + '\n'
 
             logString += SEPARATOR[:] + '\n'
@@ -131,10 +131,10 @@ def isHourToSleep(wrapper):
         now = localtime().tm_hour
 
     if now >= minH and now < maxH:
-        print 'Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
+        print wrapper.url + ' Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
         return True
     else:
-        print 'Non Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
+        print wrapper.url + ' Non Devo dormire, sono le ' + str(now) + ' e intervallo: ' + str(minH) + '-' + str(maxH)
         return False
 
 def isTimeToSleep(wrapper):
@@ -142,7 +142,7 @@ def isTimeToSleep(wrapper):
     today = timeNTP(wrapper.networkTimeServer) if wrapper.networkTimeServer != Constants.UNKNOWN else localtime()
 
     # Get start sleep mode date, if unknown choose day of thread start
-    startSleep = wrapper.sleepModeDate 
+    startSleep = wrapper.sleepModeDate
 
     # Numbers of day since 1 1 0000
     todayDay =  today.tm_year * 360 + today.tm_yday
@@ -155,10 +155,10 @@ def isTimeToSleep(wrapper):
         return False
 
     if todayDay % int(wrapper.repeats) == startSleepDay % int(wrapper.repeats):
-        print 'Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay) + ' e repeat: ' + str(wrapper.repeats)
+        print wrapper.url + ' Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay) + ' e repeat: ' + str(wrapper.repeats)
         return isHourToSleep(wrapper)
     else:
-        print 'Non Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay)+ ' e repeat: ' + str(wrapper.repeats)
+        print wrapper.url + ' Non Devo dormire, oggi: ' + str(todayDay) + ' e il giorno sleep : ' +str(startSleepDay)+ ' e repeat: ' + str(wrapper.repeats)
         return False
 
 
