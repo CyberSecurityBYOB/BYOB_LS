@@ -66,10 +66,4 @@ class WorkerWrapper :
         self.repeats = 0
 
     def __str__(self):
-        return 'Settings:\nUrl : ' + self.url +
-        '\nMax Contacts : ' + str(self.contacts) +
-        '\nProxy : ' + self.proxy +
-        '\nUserAgent : ' + self.userAgent +
-        '\nFrequency : ' + str(self.frequency) +
-        '\nSleep Mode : ' + self.sleepModeDate + ' from//to : ' + str(self.sleepModeMinHour) + '//' + str(self.sleepModeMaxHour) + ' repeats : ' + str(self.repeats) +
-        '\nEnd Of Settings.\n'
+        return 'Settings:\nUrl : ' + self.url + '\nMax Contacts : ' + str(self.contacts) +'\nProxy : ' + self.proxy +'\nUserAgent : ' + self.userAgent +'\nFrequency : ' + str(self.frequency) +'\nSleep Mode : ' + self.sleepModeDate + ' from//to : ' + str(self.sleepModeMinHour) + '//' + str(self.sleepModeMaxHour) + ' repeats : ' + str(self.repeats) +'\nEnd Of Settings.\n'
