@@ -131,10 +131,10 @@ def isHourToSleep(wrapper):
         now = localtime().tm_hour
 
     if now >= minH and now < maxH:
-        print wrapper.url + ' Devo dormire, sono le ' + str(now) + ' ,intervallo per dormire: ' + str(minH) + '-' + str(maxH)
+        print wrapper.url + ' Time to sleep, now: ' + str(now) + ' ,I have to sleep from-to: ' + str(minH) + '-' + str(maxH)
         return True
     else:
-        print wrapper.url + ' Non Devo dormire, sono le ' + str(now) + ' e intervallo per dormire: ' + str(minH) + '-' + str(maxH)
+        print wrapper.url + ' Time to stay awake, now: ' + str(now) + ' ,I have to sleep from-to: ' + str(minH) + '-' + str(maxH)
         return False
 
 def isTimeToSleep(wrapper):
@@ -153,17 +153,17 @@ def isTimeToSleep(wrapper):
 
     if int(wrapper.repeats)  == 0:
         if todayDay == startSleepDay:
-            print wrapper.url + ' Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep)) + ' e repeat: ' + str(wrapper.repeats)
+            print wrapper.url + ' Time to stay awake, today: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' ,day to sleep is : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep)) + ' to repeat for days: ' + str(wrapper.repeats)
             return isHourToSleep(wrapper)
         else:
-            print wrapper.url + ' Non Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep))+ ' e repeat: ' + str(wrapper.repeats)
+            print wrapper.url + ' Time to sleep, today: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' ,day to sleep is : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep))+ ' to repeat for days: ' + str(wrapper.repeats)
             return False
 
     if todayDay % int(wrapper.repeats) == startSleepDay % int(wrapper.repeats) :
-        print wrapper.url + ' Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep)) + ' e repeat: ' + str(wrapper.repeats)
+        print wrapper.url + ' Time to sleep, today: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' , day to sleep is : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep)) + ' to repeat for days: ' + str(wrapper.repeats)
         return isHourToSleep(wrapper)
     else:
-        print wrapper.url + ' Non Devo dormire, oggi: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' e il giorno sleep : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep))+ ' e repeat: ' + str(wrapper.repeats)
+        print wrapper.url + ' Time to stay awake, today: ' + str(strftime("%a, %d %b %Y %H:%M:%S",today)) + ' ,day to sleep is : ' +str(strftime("%a, %d %b %Y %H:%M:%S",startSleep))+ ' to repeat for days: ' + str(wrapper.repeats)
         return False
 
 
